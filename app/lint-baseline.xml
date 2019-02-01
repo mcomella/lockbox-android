@@ -136,6 +136,23 @@
     </issue>
 
     <issue
+            id="IconXmlAndPng"
+            message="The following images appear both as density independent `.xml` files and as bitmap files: src/main/res/drawable-hdpi/ic_lock_large.png, src/main/res/drawable/ic_lock_large.xml">
+        <location
+                file="src/main/res/drawable/ic_lock_large.xml"/>
+        <location
+                file="src/main/res/drawable-xxxhdpi/ic_lock_large.png"/>
+        <location
+                file="src/main/res/drawable-xxhdpi/ic_lock_large.png"/>
+        <location
+                file="src/main/res/drawable-xhdpi/ic_lock_large.png"/>
+        <location
+                file="src/main/res/drawable-mdpi/ic_lock_large.png"/>
+        <location
+                file="src/main/res/drawable-hdpi/ic_lock_large.png"/>
+    </issue>
+
+    <issue
             id="IconLauncherShape"
             message="Launcher icons should not fill every pixel of their square region; see the design guide for details">
         <location
