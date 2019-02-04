@@ -71,7 +71,7 @@ sealed class RouteAction(
 
         object StartOnboarding : Onboarding(TelemetryEventObject.onboarding_biometric_unlock)
         object SkipOnboarding : Onboarding(TelemetryEventObject.onboarding_skip)
-        object ContinueOnboarding : Onboarding(TelemetryEventObject.onboarding_continue)
+        object Autofill : Onboarding(TelemetryEventObject.onboarding_continue)
 
     }
 }
