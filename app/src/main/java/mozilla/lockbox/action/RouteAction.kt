@@ -76,6 +76,7 @@ sealed class RouteAction(
         object FingerprintAuth : Onboarding(TelemetryEventObject.onboarding_biometric_unlock)
         object SkipOnboarding : Onboarding(TelemetryEventObject.onboarding_skip)
         object Autofill : Onboarding(TelemetryEventObject.onboarding_continue)
+        object ChooseRoute : Onboarding(TelemetryEventObject.onboarding_continue)
     }
 }
 

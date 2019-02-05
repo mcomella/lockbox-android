@@ -12,6 +12,8 @@ import mozilla.lockbox.flux.Action
 import mozilla.lockbox.flux.Dispatcher
 import mozilla.lockbox.model.FingerprintAuthCallback
 import mozilla.lockbox.store.FingerprintStore
+import mozilla.lockbox.store.OnboardingStore
+import mozilla.lockbox.store.RouteStore
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -59,7 +61,16 @@ class OnboardingFingerprintAuthPresenterTest {
             get() = isFingerprintAuthAvailableStub
     }
 
+    @Mock
+    private val routeStore = PowerMockito.mock(RouteStore::class.java)
+
+    @Mock
+    private val onboardingStore = PowerMockito.mock(OnboardingStore::class.java)
+
+    private var onboardingStub = Observable.just(true)
+
     val dispatcher = Dispatcher()
+
     private val view = Mockito.spy(FakeView())
 
     private val fingerprintStore = FakeFingerprintStore()
@@ -74,6 +85,7 @@ class OnboardingFingerprintAuthPresenterTest {
     @Before
     fun setUp() {
         fingerprintStore.fingerprintManager = fingerprintManager
+        whenCalled(onboardingStore.onboarding).thenReturn(onboardingStub)
         dispatcher.register.subscribe(dispatcherObserver)
         subject.onViewReady()
     }
@@ -97,7 +109,7 @@ class OnboardingFingerprintAuthPresenterTest {
     }
 
     @Test
-    fun `dismiss dialog when skip is tapped`() {
+    fun `move to next screen when skip is tapped`() {
         view.onDismiss.onNext(Unit)
         dispatcherObserver.assertValueAt(0, OnboardingStatusAction(false))
         dispatcherObserver.assertValueAt(1, SettingAction.UnlockWithFingerprint(false))
