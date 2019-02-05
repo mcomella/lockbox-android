@@ -26,7 +26,9 @@ import mozilla.lockbox.support.asOptional
 @ExperimentalCoroutinesApi
 class RouteStore(
     dispatcher: Dispatcher = Dispatcher.shared,
-    dataStore: DataStore = DataStore.shared
+    dataStore: DataStore = DataStore.shared,
+    fingerprintStore: FingerprintStore = FingerprintStore.shared,
+    autofillStore: AutofillStore = AutofillStore.shared
 ) {
     companion object {
         val shared = RouteStore()
