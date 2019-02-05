@@ -59,7 +59,6 @@ class OnboardingFingerprintAuthPresenter(
 
     override fun onResume() {
         super.onResume()
-        // but not calling FingerprintSensorAction.Start
         dispatcher.dispatch(FingerprintSensorAction.Start)
     }
 
