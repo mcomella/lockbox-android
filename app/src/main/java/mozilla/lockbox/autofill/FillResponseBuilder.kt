@@ -26,8 +26,8 @@ class FillResponseBuilder(
         val responseBuilder = FillResponse.Builder()
 
         val authPresentation = RemoteViews(context.packageName, R.layout.autofill_item).apply {
-            val callToAction = context.resources.getString(R.string.autofill_authenticate_cta)
-            setTextViewText(R.id.presentationText, callToAction)
+            val searchFirefoxLockbox = context.resources.getString(R.string.autofill_authenticate_cta)
+            setTextViewText(R.id.searchLockboxText, searchFirefoxLockbox)
         }
 
         val sender = AuthActivity.getAuthIntentSender(context, this)
@@ -52,8 +52,8 @@ class FillResponseBuilder(
 
     private fun addSearchFallback(context: Context, builder: FillResponse.Builder) {
         val searchPresentation = RemoteViews(context.packageName, R.layout.autofill_item).apply {
-            val callToAction = context.resources.getString(R.string.autofill_search_cta)
-            setTextViewText(R.id.presentationText, callToAction)
+            val searchFirefoxLockbox = context.resources.getString(R.string.autofill_search_cta)
+            setTextViewText(R.id.searchLockboxText, searchFirefoxLockbox)
         }
         // See https://github.com/mozilla-lockbox/lockbox-android/issues/421
         val sender = AuthActivity.getAuthIntentSender(context, this)
@@ -84,9 +84,13 @@ class FillResponseBuilder(
         val datasetBuilder = Dataset.Builder()
         val usernamePresentation = RemoteViews(context.packageName, mozilla.lockbox.R.layout.autofill_item)
         val passwordPresentation = RemoteViews(context.packageName, mozilla.lockbox.R.layout.autofill_item)
-        usernamePresentation.setTextViewText(mozilla.lockbox.R.id.presentationText, credential.username)
+        // sets the autofill_item text to be a username if present
+        usernamePresentation.setTextViewText(
+            mozilla.lockbox.R.id.searchLockboxText,
+            credential.username)
+        // sets the autofill_item text to be a password if present
         passwordPresentation.setTextViewText(
-            mozilla.lockbox.R.id.presentationText,
+            mozilla.lockbox.R.id.searchLockboxText,
             context.getString(mozilla.lockbox.R.string.password_for, credential.username)
         )
 
@@ -100,6 +104,7 @@ class FillResponseBuilder(
                 AutofillValue.forText(credential.password), passwordPresentation)
         }
 
+        // is this building a concatinated length of autofill_items?
         return datasetBuilder.build()
     }
 
